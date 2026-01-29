@@ -1,0 +1,268 @@
+# Freeplay Documentation
+
+> Freeplay is the ops platform for enterprise AI engineering teams. It provides an integrated workflow for LLM observability, prompt management, evaluations, testing, and human review that lets AI engineering teams continuously improve their AI products and agents.
+
+## Agent Resources
+
+- [Agent Resources](https://docs.freeplay.ai/agent-resources/overview): Resources and context for AI agents helping developers integrate with Freeplay. START HERE for product overview, integration patterns, and troubleshooting tips.
+
+## Introduction
+
+- [About Freeplay](https://docs.freeplay.ai/getting-started/freeplay-introduction): The ops platform for enterprise AI engineering teams
+- [Why Freeplay?](https://docs.freeplay.ai/getting-started/why-freeplay): Why AI engineering teams choose Freeplay as their ops platform for evals, observability, testing and experimentation
+- [Quick Start Overview](https://docs.freeplay.ai/getting-started/overview): Choose your path to get started with Freeplay
+- [Start in the UI](https://docs.freeplay.ai/getting-started/start-in-ui): Create prompts, datasets, evaluations, and tests without writing code
+- [Integrate with Your Application](https://docs.freeplay.ai/getting-started/integrate): Connect Freeplay to your AI application for observability, evaluations, and prompt management
+
+## Account Setup
+
+- [Project Setup](https://docs.freeplay.ai/account-setup/project): Create your Freeplay account, generate API keys, and configure models and environments
+- [Model Management](https://docs.freeplay.ai/account-setup/model-management): Configure LLM providers, manage API keys, and control which models your team can use
+- [LiteLLM Proxy](https://docs.freeplay.ai/account-setup/configure-litellm-proxy-models-in-freeplay): Set up LiteLLM Proxy as a custom provider to access multiple models through a unified interface
+- [User Roles and Access Controls](https://docs.freeplay.ai/account-setup/role-based-access-control): Manage team permissions with role-based access controls for users and projects
+- [Single Sign-On and SCIM](https://docs.freeplay.ai/account-setup/sso-and-scim): Enterprise authentication options for centralized user management and automated provisioning
+
+## Core Concepts
+
+### Observability
+
+- [Observability Dashboard](https://docs.freeplay.ai/core-concepts/observability/observability-dashboard): Monitor, debug, and optimize your LLM systems in production with comprehensive observability tools
+- [Sessions, Traces, and Completions](https://docs.freeplay.ai/core-concepts/observability/sessions-traces-and-completions): Understand Freeplay's three-level hierarchy for organizing your AI application logs
+- [Automations and Filters](https://docs.freeplay.ai/core-concepts/observability/automations): Create automated workflows that act on your production data based on custom filters
+
+### Prompt Templates
+
+- [Prompt Management](https://docs.freeplay.ai/core-concepts/prompt-management/managing-prompts): Version, iterate, and deploy prompt templates with full history tracking and environment-based deployment
+- [Advanced Templating (Mustache)](https://docs.freeplay.ai/core-concepts/prompt-management/advanced-prompt-templating-using-mustache): Use Mustache syntax to add conditionals, loops, and dynamic content to your prompt templates
+- [Structured Outputs](https://docs.freeplay.ai/core-concepts/prompt-management/structured-outputs/structured-outputs): Constrain LLM responses to specific formats for reliable parsing and type-safe integrations
+- [Structured Outputs (OpenAI)](https://docs.freeplay.ai/core-concepts/prompt-management/structured-outputs/structured-outputs-openai): Use OpenAI's strict JSON schema mode to guarantee responses match your expected data structure
+- [JSON Mode](https://docs.freeplay.ai/core-concepts/prompt-management/structured-outputs/json-mode): Get valid JSON output from LLMs without enforcing a strict schema
+- [Environments](https://docs.freeplay.ai/core-concepts/prompt-management/deployment-environments): Manage prompt deployment across development, staging, and production environments
+- [Prompt Bundling](https://docs.freeplay.ai/core-concepts/prompt-management/prompt-bundling): Bundle prompt templates into your deployment artifacts for increased resilience and release control
+
+### Evaluations
+
+- [Evaluations Overview](https://docs.freeplay.ai/core-concepts/evaluations/evaluations): Measure and improve your AI outputs with model-graded, code-based, and human evaluations
+- [Model-Graded Evaluations](https://docs.freeplay.ai/core-concepts/evaluations/model-graded-evaluations): Use LLMs to automatically score and evaluate your AI outputs at scale
+- [Code Evaluations](https://docs.freeplay.ai/core-concepts/evaluations/code-evaluations): Run custom evaluation logic in your codebase and log results to Freeplay
+- [Human Labeled Evaluations](https://docs.freeplay.ai/core-concepts/evaluations/human-evaluations): Capture expert judgment and subjective quality assessments from your team
+- [Auto-categorization](https://docs.freeplay.ai/core-concepts/evaluations/auto-categorization): Automatically tag and classify your production logs to understand usage patterns and identify trends
+
+### Testing
+
+- [Test Runs Overview](https://docs.freeplay.ai/core-concepts/test-runs/test-runs): Run batch evaluations against datasets to validate performance and catch regressions
+- [Component Level Test Runs](https://docs.freeplay.ai/core-concepts/test-runs/component-level-test-runs): Test individual prompts and models in isolation for rapid iteration
+- [End-to-End Test Runs](https://docs.freeplay.ai/core-concepts/test-runs/end-to-end-test-runs): Test your complete AI system including agents, RAG pipelines, and multi-step workflows
+
+### Datasets
+
+- [Datasets](https://docs.freeplay.ai/core-concepts/datasets/datasets): Build and manage test datasets to power evaluations, test runs, and fine-tuning workflows
+- [Dataset Curation](https://docs.freeplay.ai/core-concepts/datasets/dataset-curation): Learn strategies for building high-quality datasets that accurately represent real-world usage
+
+### Other Concepts
+
+- [Review Queues](https://docs.freeplay.ai/core-concepts/review-queues): Streamline human review of your AI outputs with organized queues, team assignments, and actionable insights
+- [AI Features](https://docs.freeplay.ai/core-concepts/ai-features): How Freeplay uses AI to accelerate your product improvement workflow
+
+## How-To Guides
+
+- [How-To Guides Overview](https://docs.freeplay.ai/practical-guides/overview): Step-by-step guides for implementing common AI application patterns with Freeplay
+- [Common Integration Patterns](https://docs.freeplay.ai/practical-guides/common-integration-patterns): Implement common patterns like multi-turn chat, agent workflows, tool calls, and customer feedback
+- [Building Agents](https://docs.freeplay.ai/practical-guides/agents): Overview of how to build, monitor, and improve AI agents using Freeplay
+- [Multi-Turn Chat](https://docs.freeplay.ai/practical-guides/multi-turn-chat-support): Overview of implementing multi-turn chatbots using Freeplay
+- [Tool Calls](https://docs.freeplay.ai/practical-guides/tools): Managing tool schema, recording tool calls with Freeplay
+- [Multimodal Data](https://docs.freeplay.ai/practical-guides/working-with-multi-modal-data-in-freeplay): Work with images, audio files, and documents alongside text in prompts and completions
+- [Aligning LLM Judges](https://docs.freeplay.ai/practical-guides/creating-and-aligning-model-graded-evals): Create and align model-graded evals (LLM-as-a-judge) for reliable automated evaluation
+- [Streaming Responses](https://docs.freeplay.ai/developer-resources/recipes/streaming-responses): Handle streaming LLM responses while recording completions to Freeplay for observability
+- [Managing LLM Provider Fallbacks](https://docs.freeplay.ai/practical-guides/configuring-a-fallback-llm-provider-with-freeplay): Configure, test, and deploy fallback LLM providers to ensure reliability
+- [Building Voice Agents with Pipecat](https://docs.freeplay.ai/practical-guides/build-voice-enabled-ai-applications-with-pipecat-twilio-and-freeplay): Build and monitor voice-enabled AI applications using Pipecat, Twilio, and Freeplay
+
+## Developer Resources
+
+- [Developer Resources Overview](https://docs.freeplay.ai/developer-resources/overview): SDKs, integrations, and APIs for building with Freeplay
+- [SDKs Overview](https://docs.freeplay.ai/developer-resources/sdks): Native Freeplay SDKs for Python, TypeScript, and Java/Kotlin
+
+### AI Framework Integrations
+
+- [LangGraph](https://docs.freeplay.ai/developer-resources/integrations/langgraph): Add observability, prompt management, and evaluation capabilities to your LangGraph applications
+- [Vercel AI SDK](https://docs.freeplay.ai/developer-resources/integrations/vercel-ai-sdk): Build a powerful and well evaluated agent with Freeplay and the Vercel AI SDK
+- [Google ADK](https://docs.freeplay.ai/developer-resources/integrations/adk): Integrate Google's Agent Development Kit with Freeplay for agent observability and evaluation
+- [OpenTelemetry](https://docs.freeplay.ai/developer-resources/integrations/tracing-with-otel): Capture LLM observability data using OpenTelemetry for framework-agnostic tracing
+
+### Code Recipes
+
+- [Code Recipes Overview](https://docs.freeplay.ai/developer-resources/recipes/overview): Complete, runnable code examples for common Freeplay integration patterns
+- [Single Prompt](https://docs.freeplay.ai/developer-resources/recipes/single-prompt): Fetch a prompt from Freeplay, call an LLM, and record the completion
+- [Multi Prompt Chain](https://docs.freeplay.ai/developer-resources/recipes/multi-prompt-chain): Chain multiple prompts together in a session with Freeplay observability
+- [Record Agent Traces](https://docs.freeplay.ai/developer-resources/recipes/record-traces): Record agent traces containing multiple LLM completions to Freeplay for observability
+- [Multi-Chain Prompt with Traces](https://docs.freeplay.ai/developer-resources/recipes/multi-chain-prompt-with-traces): Chain multiple prompts using traces to group related completions
+- [Managing Multi-Turn Chat History](https://docs.freeplay.ai/developer-resources/recipes/continuous-chat): Manage conversation history for multi-turn chat applications with Freeplay
+- [OpenAI Function Calls](https://docs.freeplay.ai/developer-resources/recipes/using-tools-with-openai): Implement function calling with OpenAI and record tool interactions to Freeplay
+- [Anthropic Tools](https://docs.freeplay.ai/developer-resources/recipes/using-tools-with-anthropic): Implement tool calling with Anthropic models and record to Freeplay
+- [OpenAI on Azure](https://docs.freeplay.ai/developer-resources/recipes/call-openai-on-azure): Call OpenAI models via Azure OpenAI Service with Freeplay integration
+- [Anthropic on Bedrock](https://docs.freeplay.ai/developer-resources/recipes/call-anthropic-on-bedrock): Call Anthropic models via AWS Bedrock with Freeplay integration
+- [Llama on SageMaker](https://docs.freeplay.ai/developer-resources/recipes/call-llama-3-on-aws-sagemaker): Call Llama models hosted on AWS SageMaker with Freeplay prompt management
+- [Provider Switching](https://docs.freeplay.ai/developer-resources/recipes/provider-switching): Switch between LLM providers dynamically using Freeplay prompt configuration
+- [LiteLLM Proxy](https://docs.freeplay.ai/developer-resources/recipes/provider-switching-with-litellm): Route LLM calls through LiteLLM while recording to Freeplay
+- [Test Runs](https://docs.freeplay.ai/developer-resources/recipes/test-run): Execute batch test runs over datasets using the Freeplay SDK
+- [Tests with Tools](https://docs.freeplay.ai/developer-resources/recipes/run-a-test-with-tools-programmatically): Run programmatic test runs with tool calling functionality using the Freeplay SDK
+- [Structured Outputs](https://docs.freeplay.ai/developer-resources/recipes/structured-outputs): Use structured outputs to get typed responses from LLMs with Freeplay
+- [OpenAI Batch API](https://docs.freeplay.ai/developer-resources/recipes/openai-batch-api): Process multiple LLM requests using OpenAI's Batch API with Freeplay
+- [Pipecat Observer](https://docs.freeplay.ai/developer-resources/recipes/freeplay-pipecat-observer): Add Freeplay observability to Pipecat voice pipelines using the Observer pattern
+- [Pipecat Processor](https://docs.freeplay.ai/developer-resources/recipes/pipecat-processor-integration): Add Freeplay observability to Pipecat voice pipelines using the Processor pattern
+
+## Freeplay SDK
+
+### Getting Started
+
+- [SDK Setup](https://docs.freeplay.ai/freeplay-sdk/setup): Install and configure the Freeplay SDK for Python, Node.js, or Java/Kotlin
+- [Organizing Principles](https://docs.freeplay.ai/freeplay-sdk/organizing-principles): Understand the core namespaces and hierarchy that structure the Freeplay SDK
+
+### Recording Data
+
+- [Sessions](https://docs.freeplay.ai/freeplay-sdk/sessions): Create and manage sessions to group related LLM completions together
+- [Traces](https://docs.freeplay.ai/freeplay-sdk/traces): Group completions within sessions using traces to track agent workflows
+- [Recording Completions](https://docs.freeplay.ai/freeplay-sdk/recording-completions): Record LLM interactions to Freeplay for observability and evaluation
+- [Customer Feedback](https://docs.freeplay.ai/freeplay-sdk/customer-feedback): Log customer feedback and events associated with LLM completions
+
+### Prompts
+
+- [Prompts](https://docs.freeplay.ai/freeplay-sdk/prompts): Retrieve and format prompt templates from Freeplay for use with any LLM provider
+
+### Testing
+
+- [Test Runs](https://docs.freeplay.ai/freeplay-sdk/test-runs): Run batch tests of your LLM prompts and chains programmatically
+
+### Reference
+
+- [Data Models](https://docs.freeplay.ai/freeplay-sdk/data-models): Reference documentation for Freeplay SDK data models and payload structures
+
+### Open Source Repositories
+
+Freeplay's Python and Node SDK are open source. The Java SDK will be soon.
+
+- [Freeplay Python SDK on GitHub](https://github.com/freeplayai/freeplay-python/blob/main/README.md)
+-- [Python Changelog](https://github.com/freeplayai/freeplay-python/blob/main/CHANGELOG.md)
+-- [Python contribution guidelines](https://github.com/freeplayai/freeplay-python/blob/main/CONTRIBUTING.md)
+- [Freeplay Node SDK on GitHub](https://github.com/freeplayai/freeplay-node/blob/main/README.md)
+-- [Node Changelog](https://github.com/freeplayai/freeplay-node/blob/main/CHANGELOG.md)
+-- [Node contribution guidelines](https://github.com/freeplayai/freeplay-node/blob/main/CONTRIBUTING.md)
+
+## Security & Compliance
+
+- [Security Overview](https://docs.freeplay.ai/security-compliance/security-overview): Security measures implemented to protect your data and ensure platform safety
+- [Data Retention](https://docs.freeplay.ai/security-compliance/data-retention-policy): How long Freeplay keeps different types of data and why
+- [GDPR](https://docs.freeplay.ai/security-compliance/general-data-protection-regulation-gdpr): GDPR compliance practices for data privacy and security
+- [Private Deployment (BYOC)](https://docs.freeplay.ai/security-compliance/byoc): Run Freeplay services in your own cloud with Bring-Your-Own-Cloud deployment
+- [Compliance with Prompt Bundling](https://docs.freeplay.ai/security-compliance/production-prompt-bundling-compliance-guard-rails): Ensure prompt changes are peer-reviewed and auditable for SOC 2, ISO 27001, PCI-DSS compliance
+
+## Resources
+
+- [Changelog](https://docs.freeplay.ai/resources/changelog): Platform updates, SDK releases, and API changes
+- [Glossary](https://docs.freeplay.ai/resources/glossary): Definitions of key terms and concepts used throughout Freeplay documentation
+- [Support](https://docs.freeplay.ai/resources/support): Get help, check system status, and share feedback
+
+## API Reference (OpenAPI)
+
+- [API Introduction](https://docs.freeplay.ai/openapi/introduction): Getting started with the Freeplay API
+- [Search API Operators](https://docs.freeplay.ai/openapi/search-api-operators): Filter operators and query syntax for the Search API endpoints
+- [OpenAPI spec](https://app.freeplay.ai/openapi.json): Access the raw OpenAPI 3.1 specification for use with code generators, API clients, or LLM tools.
+
+### Observability Endpoints
+
+- [Record Completion](https://docs.freeplay.ai/api-reference/observability/record-completion): Log an LLM completion with its prompt, response, and metadata
+- [Update Completion](https://docs.freeplay.ai/api-reference/observability/update-completion): Append messages or evaluation results to an existing completion
+- [Record Trace](https://docs.freeplay.ai/api-reference/observability/record-trace): Create or update a trace within a session
+- [Update Session Metadata](https://docs.freeplay.ai/api-reference/observability/update-session-metadata): Merge custom metadata into an existing session
+- [Update Trace Metadata](https://docs.freeplay.ai/api-reference/observability/update-trace-metadata): Merge custom metadata into an existing trace
+- [Add Completion Feedback](https://docs.freeplay.ai/api-reference/observability/add-completion-feedback): Record end-user feedback on a completion
+- [Add Trace Feedback](https://docs.freeplay.ai/api-reference/observability/add-trace-feedback): Record end-user feedback on a trace
+
+### Search & Analytics Endpoints
+
+- [Search Sessions](https://docs.freeplay.ai/api-reference/search-&-analytics/search-sessions): Query sessions using advanced filters
+- [Search Traces](https://docs.freeplay.ai/api-reference/search-&-analytics/search-traces): Query traces using advanced filters
+- [Search Completions](https://docs.freeplay.ai/api-reference/search-&-analytics/search-completions): Query LLM completions using advanced filters
+- [List Sessions](https://docs.freeplay.ai/api-reference/search-&-analytics/list-sessions): Retrieve sessions with their completions, ordered by most recent
+- [Get Completion Statistics](https://docs.freeplay.ai/api-reference/search-&-analytics/get-completion-statistics): Retrieve evaluation statistics for a specific prompt template
+- [Get All Completion Statistics](https://docs.freeplay.ai/api-reference/search-&-analytics/get-all-completion-statistics): Retrieve aggregate evaluation statistics across all prompts
+
+### Prompt Template Endpoints
+
+- [List Prompt Templates](https://docs.freeplay.ai/api-reference/prompt-templates/list-prompt-templates): Retrieve all prompt templates in a project
+- [Get Prompt Template](https://docs.freeplay.ai/api-reference/prompt-templates/get-prompt-template): Retrieve a prompt template's metadata by ID
+- [Create Prompt Template](https://docs.freeplay.ai/api-reference/prompt-templates/create-prompt-template): Create a new prompt template
+- [Update Prompt Template](https://docs.freeplay.ai/api-reference/prompt-templates/update-prompt-template): Rename a prompt template
+- [Delete Prompt Template](https://docs.freeplay.ai/api-reference/prompt-templates/delete-prompt-template): Archive a prompt template and all its versions
+- [List Prompt Template Versions](https://docs.freeplay.ai/api-reference/prompt-templates/list-prompt-template-versions): Retrieve all versions of a prompt template
+- [Create Prompt Template Version by ID](https://docs.freeplay.ai/api-reference/prompt-templates/create-prompt-template-version-by-id): Create a new version of an existing prompt template by template ID
+- [Create Prompt Template Version by Name](https://docs.freeplay.ai/api-reference/prompt-templates/create-prompt-template-version-by-name): Create a new version of a prompt template by template name
+- [Get Prompt Template by Name and Environment](https://docs.freeplay.ai/api-reference/prompt-templates/get-prompt-template-by-name-and-environment): Retrieve a prompt template deployed to a specific environment
+- [Update Environment for Prompt Template Version](https://docs.freeplay.ai/api-reference/prompt-templates/update-environment-for-prompt-template-version): Deploy a prompt version to one or more environments
+
+### Prompt Dataset Endpoints
+
+- [List Prompt Datasets](https://docs.freeplay.ai/api-reference/prompt-datasets/list-prompt-datasets): Retrieve all prompt-level datasets in a project
+- [Get Prompt Dataset](https://docs.freeplay.ai/api-reference/prompt-datasets/get-prompt-dataset): Retrieve a prompt dataset's metadata by ID
+- [Create Prompt-Level Dataset](https://docs.freeplay.ai/api-reference/prompt-datasets/create-prompt-level-dataset): Create a new dataset for prompt-level testing
+- [Update Prompt Dataset](https://docs.freeplay.ai/api-reference/prompt-datasets/update-prompt-dataset): Modify a prompt dataset's name, description, or input schema
+- [Delete Prompt Dataset](https://docs.freeplay.ai/api-reference/prompt-datasets/delete-prompt-dataset): Archive a prompt dataset and its test cases
+- [List Prompt Test Cases](https://docs.freeplay.ai/api-reference/prompt-datasets/list-prompt-test-cases): Retrieve all test cases in a prompt dataset
+- [Get Prompt Test Case](https://docs.freeplay.ai/api-reference/prompt-datasets/get-prompt-test-case): Retrieve a specific test case by ID
+- [Bulk Create Prompt Test Cases](https://docs.freeplay.ai/api-reference/prompt-datasets/bulk-create-prompt-test-cases): Add multiple test cases to a dataset in a single request
+- [Update Prompt Test Case](https://docs.freeplay.ai/api-reference/prompt-datasets/update-prompt-test-case): Modify an existing test case's inputs, output, or metadata
+- [Delete Prompt Test Case](https://docs.freeplay.ai/api-reference/prompt-datasets/delete-prompt-test-case): Remove a test case from a dataset
+- [Bulk Delete Prompt Test Cases](https://docs.freeplay.ai/api-reference/prompt-datasets/bulk-delete-prompt-test-cases): Remove multiple test cases in a single request
+
+### Agent Dataset Endpoints
+
+- [List Agent Datasets](https://docs.freeplay.ai/api-reference/agent-datasets/list-agent-datasets): Retrieve all agent-level datasets in a project
+- [Get Agent Dataset](https://docs.freeplay.ai/api-reference/agent-datasets/get-agent-dataset): Retrieve an agent dataset's metadata by ID
+- [Create Agent-Level Dataset](https://docs.freeplay.ai/api-reference/agent-datasets/create-agent-level-dataset): Create a new dataset for agent-level testing
+- [Update Agent Dataset](https://docs.freeplay.ai/api-reference/agent-datasets/update-agent-dataset): Modify an agent dataset's name, description, or compatible agents
+- [Delete Agent Dataset](https://docs.freeplay.ai/api-reference/agent-datasets/delete-agent-dataset): Archive an agent dataset and its test cases
+- [List Agent Test Cases](https://docs.freeplay.ai/api-reference/agent-datasets/list-agent-test-cases): Retrieve all test cases in an agent dataset
+- [Get Agent Test Case](https://docs.freeplay.ai/api-reference/agent-datasets/get-agent-test-case): Retrieve a specific agent test case by ID
+- [Bulk Create Agent Test Cases](https://docs.freeplay.ai/api-reference/agent-datasets/bulk-create-agent-test-cases): Add multiple test cases to an agent dataset in a single request
+- [Update Agent Test Case](https://docs.freeplay.ai/api-reference/agent-datasets/update-agent-test-case): Modify an existing agent test case's inputs, outputs, or metadata
+- [Delete Agent Test Case](https://docs.freeplay.ai/api-reference/agent-datasets/delete-agent-test-case): Remove a test case from an agent dataset
+- [Bulk Delete Agent Test Cases](https://docs.freeplay.ai/api-reference/agent-datasets/bulk-delete-agent-test-cases): Remove multiple agent test cases in a single request
+
+### Evaluation Criteria Endpoints
+
+- [List Evaluation Criteria](https://docs.freeplay.ai/api-reference/evaluation-criteria/list-evaluation-criteria): Retrieve all evaluation criteria in a project
+- [Get Evaluation Criteria](https://docs.freeplay.ai/api-reference/evaluation-criteria/get-evaluation-criteria): Retrieve an evaluation criteria's configuration by ID
+- [Delete Evaluation Criteria](https://docs.freeplay.ai/api-reference/evaluation-criteria/delete-evaluation-criteria): Permanently delete an evaluation criteria and all its versions
+- [Enable Criteria](https://docs.freeplay.ai/api-reference/evaluation-criteria/enable-criteria): Activate an evaluation criteria for use in test runs and online evaluations
+- [Disable Criteria](https://docs.freeplay.ai/api-reference/evaluation-criteria/disable-criteria): Deactivate an evaluation criteria without deleting it
+- [Reorder Criteria](https://docs.freeplay.ai/api-reference/evaluation-criteria/reorder-criteria): Change the display order of evaluation criteria
+- [List Evaluation Criteria Versions](https://docs.freeplay.ai/api-reference/evaluation-criteria/list-evaluation-criteria-versions): Retrieve all versions of an evaluation criteria
+- [Get Evaluation Criteria Version](https://docs.freeplay.ai/api-reference/evaluation-criteria/get-evaluation-criteria-version): Retrieve a specific evaluation criteria version
+- [Deploy Evaluation Criteria Version](https://docs.freeplay.ai/api-reference/evaluation-criteria/deploy-evaluation-criteria-version): Activate an evaluation criteria version for use in evaluations
+- [Delete Evaluation Criteria Version](https://docs.freeplay.ai/api-reference/evaluation-criteria/delete-evaluation-criteria-version): Permanently delete an evaluation criteria version
+
+### Test Run Endpoints
+
+- [List Test Runs](https://docs.freeplay.ai/api-reference/test-runs/list-test-runs): Retrieve all test runs in a project
+- [Create Test Run](https://docs.freeplay.ai/api-reference/test-runs/create-test-run): Start a new test run against a dataset
+- [Get Test Run Results](https://docs.freeplay.ai/api-reference/test-runs/get-test-run-results): Retrieve results from a completed test run
+
+### Configuration Endpoints
+
+- [List Projects](https://docs.freeplay.ai/api-reference/configuration/list-projects): Retrieve all projects accessible to the current user
+- [Get Project](https://docs.freeplay.ai/api-reference/configuration/get-project): Retrieve the current project's details
+- [Create Project](https://docs.freeplay.ai/api-reference/configuration/create-project): Create a new project in your workspace
+- [Update Project](https://docs.freeplay.ai/api-reference/configuration/update-project): Modify project settings like name, visibility, or resource limits
+- [List Project Members](https://docs.freeplay.ai/api-reference/configuration/list-project-members): Retrieve all users with access to the project
+- [Add Project Member](https://docs.freeplay.ai/api-reference/configuration/add-project-member): Grant a user access to the project
+- [Update Project Member](https://docs.freeplay.ai/api-reference/configuration/update-project-member): Change a user's role in the project
+- [Remove Project Member](https://docs.freeplay.ai/api-reference/configuration/remove-project-member): Revoke a user's access to the project
+- [List Environments](https://docs.freeplay.ai/api-reference/configuration/list-environments): Retrieve all deployment environments in your workspace
+- [Create Environment](https://docs.freeplay.ai/api-reference/configuration/create-environment): Create a new deployment environment
+- [Update Environment](https://docs.freeplay.ai/api-reference/configuration/update-environment): Rename an existing environment
+- [Delete Environment](https://docs.freeplay.ai/api-reference/configuration/delete-environment): Remove an environment
+- [List Users](https://docs.freeplay.ai/api-reference/configuration/list-users): Retrieve all active users in your workspace
+- [Get User](https://docs.freeplay.ai/api-reference/configuration/get-user): Retrieve a user's details by ID
+- [Create User](https://docs.freeplay.ai/api-reference/configuration/create-user): Create a new user in your workspace
+- [Update User](https://docs.freeplay.ai/api-reference/configuration/update-user): Modify a user's name, role, or profile settings
+- [Delete User](https://docs.freeplay.ai/api-reference/configuration/delete-user): Remove a user from your workspace
