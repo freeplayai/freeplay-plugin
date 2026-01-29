@@ -1,0 +1,3 @@
+[submodule "freeplay-mcp"]
+	path = freeplay-mcp
+	url = git@github.com:freeplayai/freeplay-mcp.git

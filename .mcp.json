@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "mcp": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/run-mcp.sh",
+      "args": [],
+      "env": {}
+    }
+  }
+}
