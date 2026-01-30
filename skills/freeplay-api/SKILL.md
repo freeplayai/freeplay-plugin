@@ -11,7 +11,7 @@ You can use the Freeplay API like this:
 import requests
 
 freeplay_api_key = os.environ["FREEPLAY_API_KEY"]
-freeplay_api_url = os.environ["FREEPLAY_API_URL"]
+freeplay_api_base = os.environ["FREEPLAY_API_BASE"]
 
 # Many but not all operations require a project_id
 project_id = os.environ["FREEPLAY_PROJECT_ID"]
@@ -26,7 +26,7 @@ def freplay_request(method, endpoint, data):
 
 response = freplay_request(
   "POST",
-  f"{freeplay_api_url}/v2/projects/{project_id}/search/completions",
+  f"{freeplay_api_base}/v2/projects/{project_id}/search/completions",
   data={
     "filters": {
       "field": "completion_inputs.question",

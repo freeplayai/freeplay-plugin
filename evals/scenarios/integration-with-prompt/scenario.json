@@ -1,0 +1,50 @@
+{
+  "name": "integration-with-prompt",
+  "description": "Integrate Freeplay SDK with prompt management - create a prompt template and record completions with prompt info",
+  "user_prompt": "Help me integrate Freeplay into this project. I want to: 1) Create a prompt template called 'summarize' in Freeplay with the system and user message structure from main.py, 2) Fetch and use that prompt when making LLM calls, 3) Record completions to Freeplay with the prompt info attached. Use the Freeplay SDK. Before making changes, explore the SDK documentation to understand the correct API.\n\nIMPORTANT:\n- Do not ask questions - just proceed with reasonable defaults.\n- The following environment variables are already set: FREEPLAY_API_KEY, FREEPLAY_PROJECT_ID, FREEPLAY_API_URL, OPENAI_API_KEY. Use os.environ to read them directly in the code.\n- When using MCP tools that need a project_id, first read the value from the environment using Bash (e.g., `echo $FREEPLAY_PROJECT_ID`) and pass that actual value to the tool.\n- You MUST run the code after making changes to verify it works and that a completion is actually recorded to Freeplay.",
+  "project_dir": "project/",
+  "max_turns": 30,
+  "success_criteria": [
+    {
+      "type": "file_contains",
+      "file": "main.py",
+      "patterns": ["freeplay", "prompt"],
+      "description": "Code imports Freeplay and uses prompts"
+    },
+    {
+      "type": "code_runs",
+      "command": "python main.py",
+      "timeout": 90,
+      "description": "Modified code executes without errors"
+    },
+    {
+      "type": "api_verify",
+      "method": "check_prompt_exists",
+      "prompt_name": "summarize",
+      "description": "Prompt template 'summarize' exists in Freeplay"
+    },
+    {
+      "type": "api_verify",
+      "method": "check_completion_has_prompt",
+      "description": "Recent completion has prompt info attached"
+    }
+  ],
+  "scoring": {
+    "code_modified": {
+      "points": 20,
+      "description": "Code contains Freeplay and prompt patterns"
+    },
+    "code_runs": {
+      "points": 20,
+      "description": "Code runs without errors"
+    },
+    "prompt_created": {
+      "points": 30,
+      "description": "Prompt template exists in Freeplay"
+    },
+    "completion_has_prompt": {
+      "points": 30,
+      "description": "Completion is recorded with prompt info"
+    }
+  }
+}
