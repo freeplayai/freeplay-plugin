@@ -1,0 +1,11 @@
+# Environment files with secrets
+.env
+
+# Results (regenerated on each run)
+results/*.json
+results/*.log
+!results/.gitkeep
+
+# Python cache
+__pycache__/
+*.pyc

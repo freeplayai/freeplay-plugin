@@ -1,0 +1,40 @@
+{
+  "name": "integration-simple",
+  "description": "Integrate Freeplay SDK into a simple AI project that calls OpenAI directly",
+  "user_prompt": "Help me integrate Freeplay into this project so I can track my LLM completions. Before making any changes, explore the Freeplay SDK documentation to understand the correct API for recording completions. Use and install the Freeplay SDK, not the API. Run the code and fix issues before calling the work done.\n\nIMPORTANT: Do not ask questions - just proceed with reasonable defaults. The following environment variables are already set: FREEPLAY_API_KEY, FREEPLAY_PROJECT_ID, FREEPLAY_API_URL, OPENAI_API_KEY. Use os.environ to read them directly in the code.",
+  "project_dir": "project/",
+  "max_turns": 20,
+  "success_criteria": [
+    {
+      "type": "file_contains",
+      "file": "main.py",
+      "patterns": ["freeplay"],
+      "description": "Code imports or uses Freeplay"
+    },
+    {
+      "type": "code_runs",
+      "command": "python main.py",
+      "timeout": 60,
+      "description": "Modified code executes without errors"
+    },
+    {
+      "type": "api_verify",
+      "method": "search_completions",
+      "description": "Completion appears in Freeplay"
+    }
+  ],
+  "scoring": {
+    "code_modified": {
+      "points": 30,
+      "description": "Code contains Freeplay integration patterns"
+    },
+    "code_runs": {
+      "points": 30,
+      "description": "Code runs without errors"
+    },
+    "completion_logged": {
+      "points": 40,
+      "description": "Completion is logged to Freeplay and verifiable via API"
+    }
+  }
+}
