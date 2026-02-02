@@ -65,9 +65,10 @@ freeplay-plugin/
 │   └── plugin.json      # Plugin manifest
 ├── commands/
 │   └── optimize-prompt.md   # /freeplay:optimize-prompt command
-├── skills/
-│   └── deployed-prompts/
-│       └── SKILL.md     # Auto-invoked for deployment queries
+├── skills/              # Skills (git submodule)
+│   ├── deployed-prompts/
+│   ├── freeplay-api/
+│   └── test-run-analysis/
 ├── agents/              # Custom agents
 ├── hooks/
 │   └── hooks.json       # Event hooks
@@ -90,6 +91,8 @@ freeplay-plugin/
 | Skill | Triggers when |
 |-------|---------------|
 | `deployed-prompts` | User asks what's deployed, what version is in prod/staging/dev |
+| `freeplay-api` | Writing code that interacts with the Freeplay API |
+| `test-run-analysis` | User wants to review test run results or metrics |
 
 ## MCP Server Configuration
 
@@ -182,13 +185,24 @@ Edit `hooks/hooks.json`:
 - Restart Claude Code after changes
 - Run `/help` to see available commands under the `freeplay` namespace
 
-## Updating the MCP server
+## Updating Submodules
+
+Pull latest changes including all submodules:
+
+```bash
+git pull --recurse-submodules
+```
+
+Or set this as the default behavior:
+
+```bash
+git config submodule.recurse true
+```
+
+### After updating freeplay-mcp
 
 ```bash
 cd freeplay-mcp
-git pull origin main
 uv sync
 cd ..
-git add freeplay-mcp
-git commit -m "Update freeplay-mcp submodule"
 ```
