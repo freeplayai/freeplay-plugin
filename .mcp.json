@@ -3,7 +3,11 @@
     "mcp": {
       "command": "${CLAUDE_PLUGIN_ROOT}/scripts/run-mcp.sh",
       "args": [],
-      "env": {}
+      "env": {
+        "FREEPLAY_API_KEY": "${FREEPLAY_API_KEY}",
+        "FREEPLAY_BASE_URL": "${FREEPLAY_BASE_URL}",
+        "FREEPLAY_VERIFY_SSL": "${FREEPLAY_VERIFY_SSL}"
+      }
     }
   }
 }
