@@ -185,6 +185,12 @@ Edit `hooks/hooks.json`:
 - Restart Claude Code after changes
 - Run `/help` to see available commands under the `freeplay` namespace
 
+## Support
+
+- **Docs**: https://docs.freeplay.ai
+- **Issues**: https://github.com/freeplayai/freeplay-plugin/issues
+- **Security**: security@freeplay.ai
+
 ## Updating Submodules
 
 Pull latest changes including all submodules:
