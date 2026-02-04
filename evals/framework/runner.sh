@@ -67,6 +67,39 @@ if [ ! -f "$SCENARIO_JSON" ]; then
     exit 1
 fi
 
+# Extract timeout from scenario.json (default: 180 seconds)
+TIMEOUT=$(jq -r '.timeout // 180' "$SCENARIO_JSON")
+echo "Timeout: ${TIMEOUT}s"
+
+# Cross-platform timeout wrapper function
+run_with_timeout() {
+    local timeout_secs=$1
+    shift
+    local cmd=("$@")
+
+    # Run command in background
+    "${cmd[@]}" &
+    local pid=$!
+
+    # Monitor with timeout
+    local count=0
+    while kill -0 $pid 2>/dev/null; do
+        if [ $count -ge $timeout_secs ]; then
+            kill -TERM $pid 2>/dev/null
+            sleep 1
+            kill -KILL $pid 2>/dev/null
+            wait $pid 2>/dev/null
+            return 124  # timeout exit code
+        fi
+        sleep 1
+        ((count++))
+    done
+
+    # Get actual exit code
+    wait $pid
+    return $?
+}
+
 # Create results directory
 mkdir -p "$EVALS_DIR/results"
 
@@ -214,11 +247,20 @@ if [ -n "$PLUGIN_DIR" ]; then
         PLUGIN_DIR="$PLUGIN_ROOT"
     fi
     # Stream JSON output for visibility into thinking and tool use
-    claude -p "$PROMPT" --dangerously-skip-permissions --plugin-dir "$PLUGIN_DIR" --verbose --output-format stream-json 2>&1 | stream_and_log "$LOG_FILE" || true
+    run_with_timeout "$TIMEOUT" claude -p "$PROMPT" --dangerously-skip-permissions --plugin-dir "$PLUGIN_DIR" --verbose --output-format stream-json 2>&1 | stream_and_log "$LOG_FILE"
+    CLAUDE_EXIT_CODE=$?
 else
     echo "Baseline mode (no plugin)"
     echo ""
-    claude -p "$PROMPT" --dangerously-skip-permissions --verbose --output-format stream-json 2>&1 | stream_and_log "$LOG_FILE" || true
+    run_with_timeout "$TIMEOUT" claude -p "$PROMPT" --dangerously-skip-permissions --verbose --output-format stream-json 2>&1 | stream_and_log "$LOG_FILE"
+    CLAUDE_EXIT_CODE=$?
+fi
+
+# Check if Claude timed out
+if [ "$CLAUDE_EXIT_CODE" -eq 124 ]; then
+    echo ""
+    echo "⚠️  Claude execution timed out after ${TIMEOUT}s"
+    echo ""
 fi
 
 # Capture end time

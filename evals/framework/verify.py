@@ -68,6 +68,36 @@ class FreeplayAPI:
         path = f"/api/v2/projects/{self.project_id}/prompt-templates"
         return self._request("GET", path)
 
+    def list_projects(self) -> dict:
+        """List all projects."""
+        path = f"/api/v2/projects/all"
+        return self._request("GET", path)
+
+    def get_prompt_template_version(self, template_id: str, version_id: str) -> dict:
+        """Get a specific prompt template version."""
+        path = f"/api/v2/projects/{self.project_id}/prompt-templates/id/{template_id}/versions/{version_id}"
+        return self._request("GET", path)
+
+    def list_prompt_datasets(self) -> dict:
+        """List all prompt datasets."""
+        path = f"/api/v2/projects/{self.project_id}/prompt-datasets"
+        return self._request("GET", path)
+
+    def get_dataset_test_cases(self, dataset_id: str) -> dict:
+        """Get test cases for a dataset."""
+        path = f"/api/v2/projects/{self.project_id}/prompt-datasets/{dataset_id}/test-cases"
+        return self._request("GET", path)
+
+    def list_test_runs(self) -> dict:
+        """List all test runs in the project."""
+        path = f"/api/v2/projects/{self.project_id}/test-runs"
+        return self._request("GET", path)
+
+    def get_test_run(self, test_run_id: str) -> dict:
+        """Get a specific test run by ID."""
+        path = f"/api/v2/projects/{self.project_id}/test-runs/id/{test_run_id}"
+        return self._request("GET", path)
+
 
 def get_eval_start_timestamp() -> str:
     """Get timestamp filter - either from EVAL_START_TIME or 5 mins ago."""
@@ -222,6 +252,35 @@ def check_api_verify(project_dir: str, method: str, **kwargs) -> dict:
             result.update(verify_prompt_exists(api, kwargs.get("prompt_name", "")))
         elif method == "check_completion_has_prompt":
             result.update(verify_completion_has_prompt(api))
+        elif method == "check_prompt_has_variable":
+            result.update(verify_prompt_has_variable(
+                api,
+                kwargs.get("prompt_name", ""),
+                kwargs.get("variable_name", "")
+            ))
+        elif method == "check_dataset_exists":
+            result.update(verify_dataset_exists(
+                api,
+                kwargs.get("prompt_name", ""),
+                kwargs.get("dataset_name", "")
+            ))
+        elif method == "check_dataset_has_test_cases":
+            result.update(verify_dataset_has_test_cases(
+                api,
+                kwargs.get("min_count", 1),
+                kwargs.get("prompt_name", None),
+                kwargs.get("dataset_name", None)
+            ))
+        elif method == "check_test_run_exists":
+            result.update(verify_test_run_exists(
+                api,
+                kwargs.get("dataset_name", None)
+            ))
+        elif method == "check_test_run_has_sessions":
+            result.update(verify_test_run_has_sessions(
+                api,
+                kwargs.get("min_count", 1)
+            ))
 
     except urllib.error.HTTPError as e:
         result["api_reachable"] = True
@@ -324,6 +383,243 @@ def verify_completion_has_prompt(api: FreeplayAPI) -> dict:
     }
 
 
+def verify_prompt_has_variable(api: FreeplayAPI, prompt_name: str, variable_name: str) -> dict:
+    """Check if a prompt template contains a specific variable."""
+    # First get the prompt template
+    resp = api.list_prompt_templates()
+    templates = resp["data"].get("data", [])
+    template = None
+    for t in templates:
+        if t.get("name") == prompt_name:
+            template = t
+            break
+
+    if not template:
+        return {
+            "api_reachable": True,
+            "status_code": resp["status_code"],
+            "prompt_name": prompt_name,
+            "variable_name": variable_name,
+            "found": False,
+            "error": f"Prompt template '{prompt_name}' not found",
+            "passed": False,
+        }
+
+    # Get the latest version to check for the variable
+    latest_version_id = template.get("latest_template_version_id")
+    template_id = template.get("id")
+
+    if not latest_version_id or not template_id:
+        return {
+            "api_reachable": True,
+            "status_code": resp["status_code"],
+            "prompt_name": prompt_name,
+            "variable_name": variable_name,
+            "error": "Could not find latest version",
+            "passed": False,
+        }
+
+    # Get the version details
+    version_resp = api.get_prompt_template_version(template_id, latest_version_id)
+    version_data = version_resp["data"]
+
+    # Check if variable exists in content (messages)
+    messages = version_data.get("content", [])
+    variable_pattern = f"{{{{{variable_name}}}}}"
+    has_variable = False
+
+    for msg in messages:
+        content = msg.get("content", "")
+        if variable_pattern in content:
+            has_variable = True
+            break
+
+    return {
+        "api_reachable": True,
+        "status_code": resp["status_code"],
+        "prompt_name": prompt_name,
+        "variable_name": variable_name,
+        "template_id": template_id,
+        "version_id": latest_version_id,
+        "has_variable": has_variable,
+        "passed": has_variable,
+    }
+
+
+def verify_dataset_exists(api: FreeplayAPI, prompt_name: str, dataset_name: str) -> dict:
+    """Check if a specific dataset exists by name."""
+    # Get datasets
+    resp = api.list_prompt_datasets()
+    datasets = resp["data"].get("data", [])
+
+    # Look for exact dataset name match
+    found = False
+    dataset_id = None
+    found_dataset_name = None
+
+    for d in datasets:
+        if d.get("name") == dataset_name:
+            found = True
+            dataset_id = d.get("id")
+            found_dataset_name = d.get("name")
+            break
+
+    return {
+        "api_reachable": True,
+        "status_code": resp["status_code"],
+        "prompt_name": prompt_name,
+        "expected_dataset_name": dataset_name,
+        "dataset_id": dataset_id,
+        "dataset_name": found_dataset_name,
+        "total_datasets": len(datasets),
+        "found": found,
+        "passed": found,
+    }
+
+
+def verify_dataset_has_test_cases(api: FreeplayAPI, min_count: int, prompt_name: str = None, dataset_name: str = None) -> dict:
+    """Check if a specific dataset has at least min_count test cases."""
+    # Get all datasets
+    resp = api.list_prompt_datasets()
+    datasets = resp["data"].get("data", [])
+
+    if not datasets:
+        return {
+            "api_reachable": True,
+            "status_code": resp["status_code"],
+            "min_count": min_count,
+            "error": "No datasets found",
+            "passed": False,
+        }
+
+    # Find the specific dataset by name
+    dataset = None
+    if dataset_name:
+        for d in datasets:
+            if d.get("name") == dataset_name:
+                dataset = d
+                break
+
+    # If not found by name, use first dataset
+    if not dataset:
+        dataset = datasets[0]
+
+    dataset_id = dataset.get("id")
+    found_dataset_name = dataset.get("name")
+
+    # Get test cases
+    test_cases_resp = api.get_dataset_test_cases(dataset_id)
+    test_cases = test_cases_resp["data"].get("data", [])
+    test_case_count = len(test_cases)
+
+    return {
+        "api_reachable": True,
+        "status_code": resp["status_code"],
+        "dataset_id": dataset_id,
+        "dataset_name": found_dataset_name,
+        "min_count": min_count,
+        "test_case_count": test_case_count,
+        "passed": test_case_count >= min_count,
+    }
+
+
+def verify_test_run_exists(api: FreeplayAPI, dataset_name: str = None) -> dict:
+    """Check if a test run exists for the eval."""
+    timestamp_str = get_eval_start_timestamp()
+    filter_time = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
+    filter_timestamp = filter_time.timestamp()
+
+    # Get all test runs
+    resp = api.list_test_runs()
+    test_runs = resp["data"].get("test_runs", [])
+
+    # Filter for recent test runs created during this eval
+    recent_test_runs = []
+    for tr in test_runs:
+        created_at = tr.get("created_at")
+        if not created_at:
+            continue
+
+        # created_at is a Unix timestamp (integer)
+        try:
+            if isinstance(created_at, (int, float)):
+                if created_at >= filter_timestamp:
+                    recent_test_runs.append(tr)
+        except (ValueError, TypeError):
+            continue
+
+    return {
+        "api_reachable": True,
+        "status_code": resp["status_code"],
+        "test_run_count": len(recent_test_runs),
+        "total_test_runs": len(test_runs),
+        "since": timestamp_str,
+        "test_run_ids": [tr.get("id") for tr in recent_test_runs],
+        "passed": len(recent_test_runs) > 0,
+    }
+
+
+def verify_test_run_has_sessions(api: FreeplayAPI, min_count: int) -> dict:
+    """Check if recent test runs have sessions (executions)."""
+    timestamp_str = get_eval_start_timestamp()
+    filter_time = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
+    filter_timestamp = filter_time.timestamp()
+
+    # Get all test runs
+    resp = api.list_test_runs()
+    test_runs = resp["data"].get("test_runs", [])
+
+    # Filter for recent test runs
+    recent_test_runs = []
+    for tr in test_runs:
+        created_at = tr.get("created_at")
+        if not created_at:
+            continue
+
+        try:
+            if isinstance(created_at, (int, float)):
+                if created_at >= filter_timestamp:
+                    recent_test_runs.append(tr)
+        except (ValueError, TypeError):
+            continue
+
+    if not recent_test_runs:
+        return {
+            "api_reachable": True,
+            "status_code": resp["status_code"],
+            "error": "No recent test runs found",
+            "passed": False,
+        }
+
+    # Get the most recent test run and check its session count
+    most_recent = recent_test_runs[0]
+    test_run_id = most_recent.get("id")
+
+    # Get detailed test run info
+    try:
+        tr_resp = api.get_test_run(test_run_id)
+        tr_data = tr_resp["data"]
+        sessions_count = tr_data.get("sessions_count", 0)
+
+        return {
+            "api_reachable": True,
+            "status_code": resp["status_code"],
+            "test_run_id": test_run_id,
+            "test_run_name": most_recent.get("name"),
+            "sessions_count": sessions_count,
+            "min_count": min_count,
+            "passed": sessions_count >= min_count,
+        }
+    except Exception as e:
+        return {
+            "api_reachable": True,
+            "status_code": resp["status_code"],
+            "test_run_id": test_run_id,
+            "error": f"Failed to get test run details: {str(e)}",
+            "passed": False,
+        }
+
+
 # =============================================================================
 # Scoring
 # =============================================================================
@@ -340,6 +636,11 @@ def calculate_score(scenario: dict, check_results: list[dict]) -> dict:
         ("api_verify", "search_completions"): "completion_logged",
         ("api_verify", "check_prompt_exists"): "prompt_created",
         ("api_verify", "check_completion_has_prompt"): "completion_has_prompt",
+        ("api_verify", "check_prompt_has_variable"): "prompt_has_variable",
+        ("api_verify", "check_dataset_exists"): "dataset_created",
+        ("api_verify", "check_dataset_has_test_cases"): "test_cases_added",
+        ("api_verify", "check_test_run_exists"): "test_run_created",
+        ("api_verify", "check_test_run_has_sessions"): "test_run_executed",
     }
 
     for check in check_results:
@@ -409,6 +710,9 @@ def verify_scenario(scenario_name: str, project_dir: str) -> dict:
                 project_dir,
                 criterion.get("method", ""),
                 prompt_name=criterion.get("prompt_name", ""),
+                variable_name=criterion.get("variable_name", ""),
+                dataset_name=criterion.get("dataset_name", ""),
+                min_count=criterion.get("min_count", 1),
             )
         else:
             result = {
