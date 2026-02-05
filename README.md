@@ -1,6 +1,23 @@
 # Freeplay Plugin for Claude Code
 
-A Claude Code plugin that integrates with the Freeplay MCP server for prompt management and evaluation.
+A Claude Code plugin that integrates with the Freeplay platform for prompt management and evaluation.
+
+## ⚠️ EXPERIMENTAL
+
+**This plugin is experimental and will change.** Use at your own risk.
+
+Current limitations:
+- Does not support destructive deletion actions
+- Does not support deployment operations
+- Uses your regular Freeplay API key (not scoped to limit access)
+
+**Security warning:** Because this uses your full API key, a malicious or compromised agent could extract the key and write its own code outside the plugin to perform destructive actions against your Freeplay account.
+
+Additionally, all MCP servers share a security context within the host, enabling data exfiltration, prompt injection across tools, and cross-server data access.
+
+Only use this with agents and MCP servers you fully trust.
+
+---
 
 ## Prerequisites
 
