@@ -1,6 +1,7 @@
 # Freeplay Plugin for Claude Code
 
-Give Claude Code the ability to interact with [Freeplay](https://freeplay.ai)—browse projects, manage prompts, run tests, and analyze results through natural conversation.
+Give Claude Code the ability to interact with [Freeplay](https://freeplay.ai), The ops platform for enterprise AI engineering teams. 
+Browse projects, manage prompts, run tests, and analyze results through natural conversation.
 
 ## ⚠️ EXPERIMENTAL
 
