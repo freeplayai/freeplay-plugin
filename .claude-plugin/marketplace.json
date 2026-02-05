@@ -9,7 +9,7 @@
       "name": "freeplay",
       "source": "./",
       "description": "Freeplay Skills and MCP integration for Claude Code",
-      "version": "0.0.1"
+      "version": "0.0.2"
     }
   ]
 }
