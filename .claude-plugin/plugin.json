@@ -1,7 +1,7 @@
 {
   "name": "freeplay",
   "description": "Analyze logs, iterate on prompts and agents, and run experiments with Freeplay",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
     "name": "Freeplay"
   },
