@@ -26,7 +26,8 @@ Only use this with agents and MCP servers you fully trust.
 ### From the Plugin Marketplace
 
 ```bash
-claude plugin add freeplayai/freeplay-plugin
+claude plugin marketplace add freeplayai/freeplay-plugin
+claude plugin install freeplay
 ```
 
 Set your environment variables:
