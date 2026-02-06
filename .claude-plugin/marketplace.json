@@ -1,5 +1,8 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "freeplay-plugins",
+  "version": "0.0.3",
+  "description": "Analyze logs, iterate on prompts and agents, and run experiments with Freeplay",
   "owner": {
     "name": "Freeplay",
     "email": "support@freeplay.ai"
@@ -7,9 +10,14 @@
   "plugins": [
     {
       "name": "freeplay",
-      "source": "./",
       "description": "Analyze logs, iterate on prompts and agents, and run experiments with Freeplay",
-      "version": "0.0.3"
+      "version": "0.0.3",
+      "author": {
+        "name": "Freeplay",
+        "email": "support@freeplay.ai"
+      },
+      "source": "./",
+      "category": "development"
     }
   ]
 }
