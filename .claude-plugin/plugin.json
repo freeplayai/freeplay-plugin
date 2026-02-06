@@ -1,6 +1,6 @@
 {
   "name": "freeplay",
-  "description": "Freeplay MCP integration for Claude Code",
+  "description": "Analyze logs, iterate on prompts and agents, and run experiments with Freeplay",
   "version": "1.0.0",
   "author": {
     "name": "Brian"

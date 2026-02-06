@@ -1,16 +1,17 @@
 # Freeplay Plugin for Claude Code
 
-Give Claude Code the ability to interact with [Freeplay](https://freeplay.ai), The ops platform for enterprise AI engineering teams. 
-Browse projects, manage prompts, run tests, and analyze results through natural conversation.
+Give Claude Code the ability to interact with [Freeplay](https://freeplay.ai), the ops platform for AI engineering teams.
+
+Analyze production logs, diagnose quality issues, iterate on prompts and agents using real data, and run experiments to validate changes — all through natural language conversation.
 
 ## ⚠️ EXPERIMENTAL
 
-**This plugin is experimental and will change.** Use at your own risk.
+**This plugin is an *experimental release* and will change.** Use at your own risk.
 
 Current limitations:
 - Does not support destructive deletion actions
 - Does not support deployment operations
-- Uses your regular Freeplay API key (not scoped to limit access)
+- Uses your regular Freeplay API key (not specially scoped to limit access for agents)
 
 **Security warning:** Because this uses your full API key, a malicious or compromised agent could extract the key and write its own code outside the plugin to perform destructive actions against your Freeplay account.
 
