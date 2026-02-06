@@ -8,7 +8,7 @@
     {
       "name": "freeplay",
       "source": "./",
-      "description": "Freeplay Skills and MCP integration for Claude Code",
+      "description": "Analyze logs, iterate on prompts and agents, and run experiments with Freeplay",
       "version": "0.0.3"
     }
   ]
