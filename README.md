@@ -111,7 +111,7 @@ cd freeplay-mcp && uv sync && cd ..
 
 ## MCP Server
 
-This plugin bundles the [Freeplay MCP server](./freeplay-mcp/README.md). See the MCP server README for standalone installation, available tools, and configuration options.
+This plugin bundles the [Freeplay MCP server](https://github.com/freeplayai/freeplay-mcp/blob/main/README.md). See the MCP server README for standalone installation, available tools, and configuration options.
 
 ## Troubleshooting
 
