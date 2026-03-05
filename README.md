@@ -113,6 +113,29 @@ cd freeplay-mcp && uv sync && cd ..
 
 This plugin bundles the [Freeplay MCP server](./freeplay-mcp/README.md). See the MCP server README for standalone installation, available tools, and configuration options.
 
+### Developing with a local MCP server
+
+By default, `.mcp.json` runs the published MCP server via `uvx freeplay-mcp`. To test against a local copy of the MCP server (e.g. the `freeplay-mcp` submodule), replace the `.mcp.json` config:
+
+```json
+{
+  "mcpServers": {
+    "freeplay": {
+      "command": "uv",
+      "args": ["--directory", "./freeplay-mcp", "run", "freeplay-mcp"],
+      "env": {}
+    }
+  }
+}
+```
+
+Make sure to initialize the submodule and install dependencies first:
+
+```bash
+git submodule update --init --recursive
+cd freeplay-mcp && uv sync && cd ..
+```
+
 ## Troubleshooting
 
 **Plugin not loading:**
@@ -123,8 +146,6 @@ This plugin bundles the [Freeplay MCP server](./freeplay-mcp/README.md). See the
 - Ensure submodule is initialized: `git submodule update --init`
 - Run `uv sync` in the `freeplay-mcp/` directory
 - Check `FREEPLAY_API_KEY` is set
-- Verify the script is executable: `chmod +x scripts/run-mcp.sh`
-
 ## Support
 
 - **Docs**: https://docs.freeplay.ai

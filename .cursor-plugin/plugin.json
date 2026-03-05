@@ -1,0 +1,13 @@
+{
+  "name": "freeplay",
+  "displayName": "Freeplay",
+  "description": "Analyze logs, iterate on prompts and agents, and run experiments with Freeplay",
+  "version": "0.0.3",
+  "author": {
+    "name": "Freeplay"
+  },
+  "homepage": "https://freeplay.ai",
+  "repository": "https://github.com/freeplayai/freeplay-plugin",
+  "keywords": ["freeplay", "mcp"],
+  "logo": "assets/logo.svg"
+}
