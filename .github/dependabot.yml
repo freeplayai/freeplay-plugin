@@ -1,0 +1,197 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/web"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "type::chore"
+    open-pull-requests-limit: 3
+    assignees:
+      - "asutermo"
+    groups:
+      npm-minor-patch:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@datadog/*"
+        update-types:
+          - "minor"
+          - "patch"
+      npm-major:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@datadog/*"
+        update-types:
+          - "major"
+      datadog:
+        patterns:
+          - "@datadog/*"
+
+  # UV is not fully-featured yet in Dependabot. See https://github.com/astral-sh/uv/issues/2512
+  - package-ecosystem: "uv"
+    directories:
+      - "/"
+      - "/shared"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "python"
+      - "type::chore"
+    assignees:
+      - "asutermo"
+    groups:
+      uv-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      uv-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+
+  # Cloud Functions (pip)
+  - package-ecosystem: "pip"
+    directories:
+      - "/functions/data_indexing"
+      - "/functions/code_eval_runtime"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "python"
+      - "type::chore"
+    assignees:
+      - "asutermo"
+    groups:
+      pip-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      pip-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "type::chore"
+    assignees:
+      - "asutermo"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Dockerfiles: We use Chainguard images which are managed outside of Dependabot. We'll rely on Chainguard to manage those CVEs, etc.
+
+  # Docker Compose
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "docker"
+      - "type::chore"
+    assignees:
+      - "asutermo"
+    ignore:
+      - dependency-name: "docker.elastic.co/*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      docker-minor-patch:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "docker.elastic.co/*"
+        update-types:
+          - "minor"
+          - "patch"
+      docker-major:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "docker.elastic.co/*"
+        update-types:
+          - "major"
+      elastic-stack:
+        patterns:
+          - "docker.elastic.co/*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Helm charts
+  - package-ecosystem: "helm"
+    directory: "/k8s/helm/freeplay-app"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "helm"
+      - "type::chore"
+    assignees:
+      - "asutermo"
+    groups:
+      helm-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      helm-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
+
+  # Terraform
+  - package-ecosystem: "terraform"
+    directories:
+      - "/terraform/byoc/*"
+      - "/terraform/gcp_multi_tenant"
+      - "/terraform/local/*"
+      - "/byoc_setup/*"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "terraform"
+      - "type::chore"
+    assignees:
+      - "asutermo"
+    groups:
+      terraform-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      terraform-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
